@@ -1,0 +1,64 @@
+import java.util.*;
+
+class Main {
+    class Node {
+        int data;
+        Node next;
+
+        Node(int d) {
+            this.data = d;
+            next = null;
+        }
+    }
+
+    Node head, tmp;
+
+    void ins(int n) {
+        Node nn = new Node(n);
+        if (head == null) { // Fix: Correct condition for first node insertion
+            head = nn;
+            tmp = nn;
+        } else {
+            tmp.next = nn;
+            tmp = nn;
+        }
+    }
+
+    int maxi() { // Fix: Changed return type from void to int
+    int mx =  0; // Handle empty list case
+
+         // Start with first node’s value
+        tmp = head;
+        while (tmp != null) {
+            if (tmp.data > mx) {
+                mx = tmp.data;
+            }
+            tmp = tmp.next;
+        }
+        return mx; // Fix: Return max value
+    }
+
+    void dis() {
+        tmp = head;
+        while (tmp != null) {
+            System.out.println(tmp.data);
+            tmp = tmp.next;
+        }
+    }
+
+    public static void main(String[] args) {
+        Main o = new Main();
+        Scanner sc = new Scanner(System.in);
+
+        while (true) {
+            int n = sc.nextInt();
+            if (n < 0) {
+                break;
+            }
+            o.ins(n);
+        }
+
+        System.out.println(o.maxi()); // Prints maximum value
+        
+    }
+}
