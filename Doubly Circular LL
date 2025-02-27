@@ -3,10 +3,11 @@ import java.util.*;
 class Main {
     class Node {
         int data;
-        Node next;
+        Node prev, next;
 
         Node(int d) {
             this.data = d;
+            prev = null;
             next = null;
         }
     }
@@ -18,13 +19,15 @@ class Main {
         if (head == null) {
             head = tail = nn;
             tail.next = head; // Circular link 
-            nn.prev = head;
+            head.prev = head;
 
         } else {
             tail.next = nn;
             nn.prev = tail;
+            nn.next = head;
+            head.prev = nn;
             tail = nn;
-            tail.next = head; // Maintain circular reference
+           // tail.next = head; // Maintain circular reference
         }
     }
 
