@@ -1,0 +1,52 @@
+import java.util.*;
+
+class Main {
+    class Node {
+        int data;
+        Node prev, next;
+
+        Node(int d) {
+            this.data = d;
+            prev = null;
+            next = null;
+        }
+    }
+
+    Node head, tail;
+
+    void ins(int n) {
+        Node nn = new Node(n);
+        if (head == null) {
+            head = tail = nn;
+        } else {
+            tail.next = nn;
+            nn.prev = tail;
+            tail = nn;
+        }
+    }
+
+    void dis() {
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Main o = new Main();
+        
+        while (true) {
+            int n = sc.nextInt();
+            if (n > 0) {
+                break;
+            }
+            o.ins(n);
+        }
+        
+        o.dis();
+        sc.close();
+    }
+}
