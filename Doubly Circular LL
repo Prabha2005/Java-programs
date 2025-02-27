@@ -1,0 +1,57 @@
+import java.util.*;
+
+class Main {
+    class Node {
+        int data;
+        Node next;
+
+        Node(int d) {
+            this.data = d;
+            next = null;
+        }
+    }
+
+    Node head, tail;
+
+    void ins(int n) {
+        Node nn = new Node(n);
+        if (head == null) {
+            head = tail = nn;
+            tail.next = head; // Circular link 
+            nn.prev = head;
+
+        } else {
+            tail.next = nn;
+            nn.prev = tail;
+            tail = nn;
+            tail.next = head; // Maintain circular reference
+        }
+    }
+
+   void dis() {
+    if (head == null) return;
+
+    Node temp = head;
+    while (true) {
+        System.out.print(temp.data + " ");
+        temp = temp.next;
+        if (temp == head) break; 
+    }
+    System.out.println();
+}
+
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Main o = new Main();
+
+        while (true) {
+            int n = sc.nextInt();
+            if (n < 0) break;
+            o.ins(n);
+        }
+
+        o.dis();
+        sc.close();
+    }
+}
