@@ -1,0 +1,37 @@
+import java.util.Stack;
+
+class ReverseStack {
+    // Function to reverse the stack using recursion
+    public static void reverse(Stack<Integer> stack) {
+        if (stack.isEmpty()) return;
+
+        int top = stack.pop();
+        reverse(stack);
+        insertAtBottom(stack, top);
+    }
+
+    // Helper function to insert element at the bottom
+    private static void insertAtBottom(Stack<Integer> stack, int item) {
+        if (stack.isEmpty()) {
+            stack.push(item);
+            return;
+        }
+        int top = stack.pop();
+        insertAtBottom(stack, item);
+        stack.push(top);
+    }
+
+    public static void main(String[] args) {
+        Stack<Integer> stack = new Stack<>();
+        stack.push(10);
+        stack.push(20);
+        stack.push(30);
+        stack.push(40);
+
+        System.out.println("Original Stack: " + stack);
+
+        reverse(stack);
+
+        System.out.println("Reversed Stack: " + stack);
+    }
+}
