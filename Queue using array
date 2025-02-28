@@ -1,0 +1,119 @@
+import java.util.Scanner;
+
+class Queue {
+    private int[] arr;
+    private int front, rear, size, capacity;
+
+    // Constructor
+    public Queue(int capacity) {
+        this.capacity = capacity;
+        arr = new int[capacity];
+        front = 0;
+        rear = -1;
+        size = 0;
+    }
+
+    // Check if the queue is empty
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    // Check if the queue is full
+    public boolean isFull() {
+        return size == capacity;
+    }
+
+    // Enqueue operation
+    public void enqueue(int item) {
+        if (isFull()) {
+            System.out.println("Queue is full! Cannot enqueue.");
+            return;
+        }
+        rear = (rear + 1) % capacity;
+        arr[rear] = item;
+        size++;
+        System.out.println(item + " enqueued.");
+    }
+
+    // Dequeue operation
+    public int dequeue() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty! Cannot dequeue.");
+            return -1;
+        }
+        int item = arr[front];
+        front = (front + 1) % capacity;
+        size--;
+        System.out.println(item + " dequeued.");
+        return item;
+    }
+
+    // Peek operation
+    public int peek() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty! No front element.");
+            return -1;
+        }
+        return arr[front];
+    }
+
+    // Display queue elements
+    public void display() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty!");
+            return;
+        }
+        System.out.print("Queue: ");
+        for (int i = 0; i < size; i++) {
+            System.out.print(arr[(front + i) % capacity] + " ");
+        }
+        System.out.println();
+    }
+}
+
+// Main class with user input
+public class QueueWithUserInput {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter queue capacity: ");
+        int capacity = scanner.nextInt();
+
+        Queue queue = new Queue(capacity);
+
+        while (true) {
+            System.out.println("\nQueue Operations:");
+            System.out.println("1. Enqueue");
+            System.out.println("2. Dequeue");
+            System.out.println("3. Peek");
+            System.out.println("4. Display");
+            System.out.println("5. Exit");
+            System.out.print("Choose an option: ");
+
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter element to enqueue: ");
+                    int item = scanner.nextInt();
+                    queue.enqueue(item);
+                    break;
+                case 2:
+                    queue.dequeue();
+                    break;
+                case 3:
+                    System.out.println("Front element: " + queue.peek());
+                    break;
+                case 4:
+                    queue.display();
+                    break;
+                case 5:
+                    System.out.println("Exiting...");
+                    scanner.close();
+                    return;
+                default:
+                    System.out.println("Invalid choice! Please try again.");
+            }
+        }
+    }
+}
